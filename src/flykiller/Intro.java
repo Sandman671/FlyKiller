@@ -5,13 +5,31 @@ package flykiller;
  * @author Sandman
  */
 import java.applet.AudioClip;
+import java.io.File;
+import java.io.IOException;
 
 public class Intro extends javax.swing.JFrame {
 
+    File fichero;
+    String tempFolder =  System.getProperty("java.io.tmpdir") ;
+    String tempFile = tempFolder + "temporal.txt" ; 
     AudioClip sonidom = java.applet.Applet.newAudioClip(getClass().getResource("/flykiller/Resources/intro.wav"));
+
     public Intro() {
+        this.fichero = new File(tempFile);
         initComponents();
         this.sonido();
+        try {
+            // A partir del objeto File creamos el fichero físicamente
+            if (fichero.createNewFile()) {
+                System.out.println("Start");
+            } else {
+                System.out.println("No ha podido ser creado el fichero");
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+       
     }
 
     public void sonido() {

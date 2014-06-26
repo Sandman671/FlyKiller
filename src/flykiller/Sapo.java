@@ -41,6 +41,7 @@ public class Sapo implements Runnable {
     JPanel panel;
     private Thread hilo;
     private final ArrayList moscas;
+    private int mm=0;
 
     public Sapo(int x, int y, JPanel panel, ArrayList moscas) {
         this.panel = panel;
@@ -59,6 +60,9 @@ public class Sapo implements Runnable {
             Mosca m = (Mosca) it.next();
             if (this.posX == m.getPosX() && this.posY == m.getPosY()) {
                 m.comida();
+                mm=mm+1;
+                WriteFile wr =new WriteFile();
+                wr.setB(mm);
             }
         }
     }

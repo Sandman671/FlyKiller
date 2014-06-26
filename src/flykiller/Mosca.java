@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 
 public class Mosca implements Runnable {
 
-    public int mf=0;
+    public int mf = 0;
     private Image mosca;
     private int posX;
     private int posY;
@@ -27,8 +27,8 @@ public class Mosca implements Runnable {
     public int codigoDireccion = 3;
     public int decision = 0;
     AudioClip sonidom = java.applet.Applet.newAudioClip(getClass().getResource("/flykiller/Resources/mosca.wav"));
-    private boolean comida=false,salvada=false;
-    private int direccion=3;
+    private boolean comida = false, salvada = false;
+    private int direccion = 3;
     private ArrayList coordenadas;
     Random rdm = (Random) new Random();
     int dir = rdm.nextInt(4);
@@ -41,23 +41,21 @@ public class Mosca implements Runnable {
     JPanel panel;
     private Thread hilo;
 
- 
     public Mosca(int x, int y, JPanel panel) {
         this.panel = panel;
         this.posX = x;
         this.posY = y;
-        coordenadas coord=new coordenadas();
-        this.coordenadas=coord.getListaXY();
+        coordenadas coord = new coordenadas();
+        this.coordenadas = coord.getListaXY();
         mosca = new ImageIcon(getClass().getResource("/flykiller/Resources/fly1.jpg")).getImage();
         animar();
     }
 
-    
-    
-     public void animar() {
+    public void animar() {
         hilo = new Thread(this);
         hilo.start();
     }
+
     public int getPosX() {
         return posX;
     }
@@ -74,28 +72,41 @@ public class Mosca implements Runnable {
     private int getNumberRandom(int Max) {
         return (int) (Math.random() * Max + 1);
     }
-    
-    public void comida(){
-        mosca=null;
-        comida=true;
-        hilo.stop();
-    }
-        public void pararHilo() {
+
+    public void comida() {
+        mosca = null;
+        comida = true;
         hilo.stop();
     }
 
+    public void salvada() {
+        salvada = true;
+
+    }
+
+    public void pararHilo() {
+        hilo.stop();
+    }
+private void verificarEstado(){
+    if (posX==666 && posY==516){
+        mf=1;
+        WriteFile wr =new WriteFile();
+        wr.setA(mf);
+    }
+}
     public void run() {
         while (true) {
             try {
+                verificarEstado();
                 if (comida) {
                     mosca = null;
                     panel.repaint();
                     pararHilo();
                 }
-               MoverPosicion();
+                MoverPosicion();
                 dibujar(panel.getGraphics());
                 Thread.sleep(10);
-               panel.repaint();
+                panel.repaint();
             } catch (InterruptedException ex) {
                 Logger.getLogger(Mosca.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -103,13 +114,12 @@ public class Mosca implements Runnable {
 
     }
 
-
     public boolean isComida() {
         return comida;
     }
 
     protected void MoverPosicion() {
-      for (Iterator it = coordenadas.iterator(); it.hasNext();) {
+        for (Iterator it = coordenadas.iterator(); it.hasNext();) {
             X_Y p = (X_Y) it.next();
             if (p.getX() == posX && p.getY() == posY) {
                 switch (p.getClase()) {
@@ -139,7 +149,7 @@ public class Mosca implements Runnable {
                             p.setIzq(false);
                         }
                         if (direccion == 2 && p.isDer()) {
-                            p.setDer( false);
+                            p.setDer(false);
                         }
                         if (direccion == 3 && p.isArriba()) {
                             p.setArriba(false);
@@ -189,7 +199,7 @@ public class Mosca implements Runnable {
                                 bandera = false;
                                 p.setArriba(false);
                             }
-                            
+
                         } while (bandera);
 
                         break;
@@ -218,11 +228,11 @@ public class Mosca implements Runnable {
         }
         switch (direccion) {
             case 1:
-               this.posX++;               
-               break;
+                this.posX++;
+                break;
             case 3:
-               this.posY++;
-               break;
+                this.posY++;
+                break;
             case 2:
                 this.posX--;
                 break;
@@ -230,7 +240,7 @@ public class Mosca implements Runnable {
                 this.posY--;
                 break;
         }
-   }
+    }
 
     protected void Decision1() {
         decision = rdm.nextInt(2);
@@ -241,7 +251,6 @@ public class Mosca implements Runnable {
         }
     }
 
- 
     protected void Decision2() {
         decision = rdm.nextInt(2);
         if (decision == 1) {
@@ -256,12 +265,9 @@ public class Mosca implements Runnable {
         this.posY = posY;
     }
 
+    public void sonidoMosca() {
 
-    public void sonidoMosca(){
-        
-            
         sonidom.play();
     }
-    
-    
+
 }

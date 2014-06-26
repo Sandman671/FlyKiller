@@ -5,6 +5,10 @@ package flykiller;
  * @author Sandman
  */
 import java.awt.Dimension;
+import java.awt.event.*;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 import javax.swing.ImageIcon;
 
@@ -12,19 +16,25 @@ public class MainScreen extends javax.swing.JFrame {
 
     public int a = 0;
     public int b = 0;
-    public int mm = 0;
-    public int mf = 0;
+    public String mm;
+    public String mf;
     public Random rdm = new Random();
+    String tempFolder = System.getProperty("java.io.tmpdir");
+    String tempFile = tempFolder + "temporal.txt";
+    File f = null;
+    InitState is = new InitState();
     //Panel panel1 = new Panel(new Dimension(800, 800));
     ImagePanel panel1 = new ImagePanel(new ImageIcon("src/flykiller/Resources/laber.jpg").getImage());
 
     public MainScreen() {
         initComponents();
-
         this.add(panel1);
+        f = new File(tempFile);
         panel1.setLocation(0, 50);
-        this.jLabel3.setText(Integer.toString(mm));
-        this.jLabel4.setText(Integer.toString(mf));
+        t.start();
+        is.InitState();
+        f.deleteOnExit();
+
     }
 
     /**
@@ -43,6 +53,7 @@ public class MainScreen extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("FlyKiller v1.3");
@@ -56,7 +67,6 @@ public class MainScreen extends javax.swing.JFrame {
         jLabel2.setText("Moscas Salvadas:");
 
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("0");
 
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -101,6 +111,13 @@ public class MainScreen extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setText("SALIR");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -113,7 +130,9 @@ public class MainScreen extends javax.swing.JFrame {
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton2)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -124,19 +143,34 @@ public class MainScreen extends javax.swing.JFrame {
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 81, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addComponent(jButton3)
+                .addGap(23, 23, 23))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.panel1.agregarMosca(); 
+        this.panel1.agregarMosca();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        this.panel1.agregarSapo();    
+        this.panel1.agregarSapo();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButton3ActionPerformed
+    javax.swing.Timer t = new javax.swing.Timer(1000, new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            ReadFile rf = new ReadFile();
+            mf = rf.getA();
+            mm = rf.getB();
+            jLabel4.setText(mf);
+            jLabel3.setText(mm);
+        }
+    });
 
     /**
      * @param args the command line arguments
@@ -176,6 +210,7 @@ public class MainScreen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
