@@ -68,47 +68,47 @@ class ImagePanel extends JPanel {
         int aux;
         aux = rdm.nextInt(2);
         if (aux == 1) {
-            int x = rdm.nextInt(10);
+            int x = rdm.nextInt(10)+1;
             switch (x) {
                 case 1:
-                    a = 120;
+                    a = 70;
                     b = 56;
                     break;
                 case 2:
-                    a = 590;
-                    b = 56;
+                    a = 446;
+                    b = 55;
                     break;
                 case 3:
-                    a = 354;
-                    b = 516;
+                    a = 180;
+                    b = 514;
                     break;
                 case 4:
-                    a = 534;
-                    b = 458;
+                    a = 510;
+                    b = 456;
                     break;
                 case 5:
-                    a = 216;
-                    b = 400;
+                    a = 180;
+                    b = 397;
                     break;
                 case 6:
-                    a = 354;
-                    b = 338;
+                    a = 404;
+                    b = 331;
                     break;
                 case 7:
-                    a = 644;
-                    b = 228;
+                    a = 564;
+                    b = 200;
                     break;
                 case 8:
-                    a = 664;
-                    b = 516;
+                    a = 640;
+                    b = 515;
                     break;
                 case 9:
-                    a = 124;
+                    a = 70;
                     b = 170;
                     break;
                 case 10:
-                    a = 230;
-                    b = 458;
+                    a = 266;
+                    b = 440;
                     break;
             }
 
@@ -120,15 +120,15 @@ class ImagePanel extends JPanel {
                     b = 56;
                     break;
                 case 2:
-                    a = 510;
-                    b = 226;
+                    a = 564;
+                    b = 236;
                     break;
                 case 3:
-                    a = 644;
+                    a = 640;
                     b = 56;
                     break;
                 case 4:
-                    a = 124;
+                    a = 70;
                     b = 480;
                     break;
                 case 5:

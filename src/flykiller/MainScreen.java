@@ -23,8 +23,8 @@ public class MainScreen extends javax.swing.JFrame {
 
         this.add(panel1);
         panel1.setLocation(0, 50);
-        jLabel3.setText(Integer.toString(mm));
-        jLabel4.setText(Integer.toString(mf));
+        this.jLabel3.setText(Integer.toString(mm));
+        this.jLabel4.setText(Integer.toString(mf));
     }
 
     /**
